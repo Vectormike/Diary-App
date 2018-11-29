@@ -1,0 +1,29 @@
+<%include partials/header.ejs%>
+<div class="ui main center container segment">
+    <h2 class="ui center">Make A Post</h2>
+    <div class="ui">
+            <form class="ui form" action="/index" method="POST">
+                <div class="ui field labeled input">
+                    <div class="ui label">
+                        Title
+                    </div>
+                    <input type="text" name="blog[title]">
+                </div><br>
+                <div class="ui field labeled input">
+                    <div class="ui label">
+                        Image url
+                    </div>
+                    <input type="text" name="blog[image]">
+                </div><br>
+                <div class="ui field labeled input">
+                    <div class="ui label"></div>
+                    <textarea name="blog[saySomething]" placeholder="Say something.." cols=50" rows="4"></textarea>    
+                </div>
+                <div class="ui field">
+                    <button class="ui button" type="submit">Submit</button>
+                </div>
+            </form>
+    </div>
+</div>
+
+<%include partials/footer.ejs%>

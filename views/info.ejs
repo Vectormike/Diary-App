@@ -1,0 +1,19 @@
+<% include partials/header %>
+<div class="ui main text center container segment">
+    <h2 class="ui center"><%=post.title%></h2>
+    <div class="ui two steps">
+        <div class="active step">
+            <p><%=post.saySomething%></p>
+
+            <div class="ui buttons field">
+                <a href="/index/<%=post._id%>/edit"><button class="ui button"><i class="ui edit icon"></i></button></a>
+                <div class="or"></div>
+                <a href="/index/<%=post._id%>/delete"><button class="ui red button"><i class="ui trash icon"></i></button></a>    
+            </div> 
+        </div>
+        <div class="disabled step"> 
+            <p><%=post.created.toLocaleString()%></p>
+        </div>
+    </div>
+</div>
+<% include partials/footer %>
