@@ -4,6 +4,10 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
 const expressSanitizer = require('express-sanitizer');
+const router = express.Router();
+const index = require('./routes/index');
+const add = require('./routes/add');
+
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -11,50 +15,15 @@ app.use(expressSanitizer());
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
-// Connect Mongoose
-mongoose.connect("mongodb://localhost/blog_app", {useNewUrlParser: true});
-// DB Schema
-let blogSchema = new mongoose.Schema({
-    title: String,
-    image: {
-        type: String,
-        default: "placeholder.jpg"
-    }, 
-    saySomething: String,
-    created: {
-        type: Date,
-        default: Date.now
-    }
-});
+//Connect all routes to the application
+app.use('/', index);
+app.use('/add', add);
 
-//Compiling to Model
-let blog = mongoose.model('blog', blogSchema);
 
-// Dynamic creation
-// blog.create({
-//     title: "Sad",
-//     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZSc6uGNxaa2xyP0ZR-PWPNElL_OGgy4UOO_LRo2X2V1RuO8dT",
-//     saySomething: "How much sad can  be?"
-// });
 
-//Index route
-app.get("/index", function(req, res){
-    blog.find({}, function(err, posts){
-        if(err){
-            console.log(err);
-        } else {
-            res.render("index", {posts:posts});
-        }
-    });
-});
-app.get("/", (req, res) => {
-    res.redirect("/index");
-});
 
-//New route
-app.get("/index/new", (req, res) => {
-    res.render("new"); 
-});
+
+
 
 //CREATE route
 app.post("/index", (req, res) => {
@@ -96,7 +65,7 @@ app.get("/index/:id/edit", (req, res) => {
 //UPDATE route
 app.put('/index/:id', (req, res) => {
     req.body.sanitized = req.sanitize(req.body.saySomething);
-    blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, updatedPost) => {
+    blog.findOneAndUpdate(req.params.id, req.body.blog, (err, updatedPost) => {
         if(err){
             res.redirect("/index");
         } else {
