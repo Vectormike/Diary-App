@@ -15,4 +15,17 @@ router.get("/index/:id/edit", (req, res) => {
     });
 });
 
+
+//UPDATE route
+router.put('/index/:id', (req, res) => {
+    req.body.sanitized = req.sanitize(req.body.saySomething);
+    blog.findOneAndUpdate(req.params.id, req.body.blog, (err, updatedPost) => {
+        if(err){
+            res.redirect("/index");
+        } else {
+            res.redirect("/index/" + req.params.id);
+        }
+    });
+});
+
 module.exports = router;
