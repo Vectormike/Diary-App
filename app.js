@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
 const expressSanitizer = require('express-sanitizer');
 const router = express.Router();
+const home = require('./routes/home');
 const index = require('./routes/index');
 const add = require('./routes/add');
 const show = require('./routes/show');
@@ -18,13 +19,14 @@ app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
 //Connect all routes to the application
+app.use('/', home);
 app.use('/', index);
 app.use('/', add);
 app.use('/', show);
 app.use('/', edit);
 app.use('/', remove);
 
-// Listenig on this port
+// Listening on this port
 app.listen(3000, function(){
     console.log("Blog is running");
 });
