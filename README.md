@@ -1,1 +1,1 @@
-# Blog_App
+# Diary App
