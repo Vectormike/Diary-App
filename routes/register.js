@@ -10,6 +10,7 @@ router.get('/register', (req, res) => {
     res.render('register');
 });
 
+// Register User
 router.post('/register', (req, res) => {
     let password = req.body.password;
     let password2 = req.body.password2
@@ -20,9 +21,7 @@ router.post('/register', (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password
-
         });
-        
         User.createUser(newUser, (err, user) =>{
             if(err){
                 console.log(err);

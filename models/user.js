@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcryptjs');
 mongoose.connect("mongodb://localhost/userauth", { useNewUrlParser: true });
 
-let userSchema = new mongoose.Schema({
+// User Schema
+let UserSchema = new mongoose.Schema({
     username: {
         type: String, 
         trim:true
@@ -17,5 +18,12 @@ let userSchema = new mongoose.Schema({
     }
 });
 
-let User = mongoose.model('user', userSchema);
-module.exports = User;
+let User = mongoose.model('user', UserSchema);
+module.exports.createUser = (newUser, callback) => {
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+            newUser.password = hash;
+            newUser.save(callback);
+        });
+    });
+}
