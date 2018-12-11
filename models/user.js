@@ -18,8 +18,8 @@ let UserSchema = new mongoose.Schema({
     }
 });
 
-let User = mongoose.model('user', UserSchema);
-module.exports.createUser = (newUser, callback) => {
+module.exports = mongoose.model('Users', UserSchema);
+let createUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
             newUser.password = hash;
@@ -27,3 +27,5 @@ module.exports.createUser = (newUser, callback) => {
         });
     });
 }
+
+module.exports = createUser;
