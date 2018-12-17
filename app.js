@@ -12,7 +12,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 // BodyParser Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cookieParser());
 
 // Express Session
@@ -45,19 +45,6 @@ app.use(methodOverride("_method"));
 
 
 
-
-// used to serialize the user for the session
-passport.serializeUser(function(user, done) {
-    done(null, user.id); 
-   // where is this user.id going? Are we supposed to access this anywhere?
-});
-
-// used to deserialize the user
-passport.deserializeUser(function(id, done) {
-  db.accounts.findById(id, function(err, user){
-     return done(err, user);
-  });
-});
 
 //Connect all routes to the application
 app.use('/', home);
