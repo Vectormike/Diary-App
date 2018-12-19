@@ -22,6 +22,7 @@ app.use(require('express-session')({
   saveUninitialized: true
 }));
 
+require('./src/config/passport.js')(app);
 
 // Passport init
 app.use(passport.initialize());
@@ -35,6 +36,7 @@ const edit =  require('./routes/edit');
 const remove = require('./routes/delete');
 const register = require('./routes/register');
 const login = require('./routes/login');
+const secret = require('./routes/secret');
 const User = require('./models/user');
 
 
@@ -55,6 +57,7 @@ app.use('/', edit);
 app.use('/', remove);
 app.use('/', register);
 app.use('/', login);
+app.use('/', secret);
 
 // Listening on this port
 app.listen(3000, function(){

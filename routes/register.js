@@ -13,23 +13,21 @@ router.get('/register', (req, res) => {
 // Register User
 router.post('/register', function(req, res, next){
     //Create User's data as an object
-    var userData = new User({
-        username: req.body.username,
-        
-        password: req.body.password
-    });
-    
-    // User not creating, passing else statement instead
-        // Insert User's data into db using mongoose
-    User.register({userData,  function(err, user){
+    var password = req.body.password;
+    var password2 = req.body.password2;
+   
+    User.register(new User({username:req.body.username}), req.body.password, function(err, user){
         if(err){
-            console.log(err);   
-            }else{
+            console.log(err);
+            res.render('/register');
+        }
+        else{
             console.log('Passed');
-            }
+            passport.authenticate('local')(req, res, function () {
+                res.redirect('/secret');
+            })
         }
     });
-
 });
 
 module.exports = router;
