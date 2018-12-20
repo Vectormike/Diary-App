@@ -38,6 +38,7 @@ const edit =  require('./routes/edit');
 const remove = require('./routes/delete');
 const register = require('./routes/register');
 const login = require('./routes/login');
+const logout = require('./routes/logout');
 const secret = require('./routes/secret');
 
 
@@ -45,8 +46,6 @@ app.set("view engine", "ejs");
 app.use(expressSanitizer());
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
-
-
 
 
 //Connect all routes to the application
@@ -58,7 +57,9 @@ app.use('/', edit);
 app.use('/', remove);
 app.use('/', register);
 app.use('/', login);
+app.use('/', logout);
 app.use('/', secret);
+
 
 // Listening on this port
 app.listen(3000, function(){
