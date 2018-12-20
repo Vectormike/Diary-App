@@ -1,5 +1,7 @@
 const passport = require('passport');
+const localStrategy = require('passport-local');
 const {Strategy} = require('passport-local');
+
 
 module.exports = function localStrategy() {
     passport.use(new Strategy(
