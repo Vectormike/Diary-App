@@ -7,8 +7,9 @@ const methodOverride = require('method-override');
 const expressSanitizer = require('express-sanitizer');
 const router = express.Router();
 const passport = require('passport');
-const localStrategy = require('passport-local').Strategy;
+const localStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
+const User = require('./models/user');
 
 // BodyParser Middleware
 app.use(bodyParser.json());
@@ -22,8 +23,9 @@ app.use(require('express-session')({
   saveUninitialized: true
 }));
 
-require('./src/config/passport.js')(app);
 
+require('./src/config/passport.js')(app);
+passport.use(new localStrategy(User.authenticate()));
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
@@ -37,7 +39,6 @@ const remove = require('./routes/delete');
 const register = require('./routes/register');
 const login = require('./routes/login');
 const secret = require('./routes/secret');
-const User = require('./models/user');
 
 
 app.set("view engine", "ejs");
