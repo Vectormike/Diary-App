@@ -8,13 +8,14 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
-// --> Login config
-router.post('/login', passport.authenticate('local', {
-        successRedirect: '/secret',
-        failureRedirect: '/login'
-    }), (req, res) => {
 
-        res.render('secret');
-});
+// --> Login config
+router.post('/login', (req, res) => passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/register'
+    })(req,res)
+);
+
+ 
 
 module.exports = router;
