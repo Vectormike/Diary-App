@@ -5,7 +5,7 @@ module.exports = function passportConfig(app) {
 
     // Stores the user in session
     passport.serializeUser((user, done) => {
-        done(null, req.user);
+        done(null, user);
     });
     // Stores user in session
     passport.deserializeUser((user, done) => {
