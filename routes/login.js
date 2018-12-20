@@ -10,11 +10,10 @@ router.get('/login', (req, res) => {
 
 
 // --> Login config
-router.post('/login', (req, res) => passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/register'
-    })(req,res)
-);
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/secret',
+    failureRedirect: '/register'
+}));
 
  
 
