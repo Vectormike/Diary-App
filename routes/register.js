@@ -24,7 +24,7 @@ router.post('/register', function(req, res, next){
         else{
             console.log('Passed');
             passport.authenticate('local')(req, res, function () {
-                res.redirect('/secret');
+                res.redirect('/index');
             })
         }
     });

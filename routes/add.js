@@ -2,10 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const blog = require('../models/blogs');
+const isLoggedIn = require('../src/config/loggedIn');
 
 
 //New route
-router.get("/index/new", (req, res) => {
+router.get("/index/new", isLoggedIn, (req, res) => {
     res.render("new"); 
 });
 

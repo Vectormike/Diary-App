@@ -2,6 +2,7 @@ const express = require('express');
 const blog = require('../models/blogs');
 const router = express.Router();
 
+
 //DESTROY route
 router.get('/index/:id/delete', (req, res) => {
     blog.findOneAndDelete(req.params.id, (err, deleteD) => {

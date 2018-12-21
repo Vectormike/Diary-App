@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const isLoggedIn = require('../src/config/loggedIn');
 
-router.get('/logout', (req, res) => {
+router.get('/logout',isLoggedIn, (req, res) => {
     req.logout();
     res.redirect('/home');
 });
